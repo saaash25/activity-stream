@@ -49,13 +49,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
         echo json_encode(array('status' => 1));
     }
 } else if (isset($_POST['action']) && $_POST['action'] == 'checkLoginStatus') {
-    if (isset($_COOKIE['usid']) && $_COOKIE['usid'] != "") {
+    if (isset($_REQUEST['USID']) && $_REQUEST['USID'] != "") {
         $logoutStatus = $activityObj->checkLogoutStausCheck($_REQUEST['USID']);
         if ($logoutStatus == 1) {
-            unset($_COOKIE['usid']);
-            setcookie("usid", "", time() - 3600, '/');
+            if (isset($_COOKIE['usid']) && $_COOKIE['usid'] != "") {
+                unset($_COOKIE['usid']);
+                setcookie("usid", "", time() - 3600, '/');
+            }
+
             echo json_encode(array('status' => 2));
-        }else{
+        } else {
             echo json_encode(array('status' => 1));
         }
     }

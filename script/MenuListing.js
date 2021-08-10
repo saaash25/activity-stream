@@ -4,6 +4,7 @@
         MenuEvents: () => {
             $(document).on('click', ".logout", function (e) {
                 var USID = $(".logout").attr('usid');
+                if(USID){
                 $.ajax({
                     url: SITEPATH + 'Controllers/activityStream.php',
                     type: "POST",
@@ -19,6 +20,10 @@
                         }
                     }
                 });
+            }else{
+                 alert('Session Expired');
+                 window.location.href = SITEPATH;
+            }
             });
             $(document).on('mousemove', 'body', function (e) {
                 clearTimeout(checkdelay);
