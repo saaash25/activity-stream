@@ -93,7 +93,8 @@
             });
 
         },
-        ActivityLogList: () => {
+        ActivityLogList: () => {},
+        ActivityLogList1: () => {
             var pagelength;
             pagelength = 10;
             var cookieString = document.cookie.split(';');
@@ -169,11 +170,11 @@
                 "ordering": false,
                 "autoWidth": false,
                 "responsive": true,
-                "pageLength": menuPageLength,
+                "pageLength": pagelength,
                 "dom": 'lt<"bottom"rip><"clear">',
                 "ajax": {
                     url: SITEPATH + 'Controllers/activityStream.php',
-                    type: "POST",
+                    type: "post",
                     data: urlParamsMenu
                 },
                 "aoColumns": columnDataMenu
