@@ -1,8 +1,6 @@
 <?php
 error_reporting(0);
 include('_conf.php');
-$GLOBALS['BASE_PATH'] = BASEPATH;
-$GLOBALS['SITE_PATH'] = SITEPATH;
 if(isset($_COOKIE['usid']) && $_COOKIE['usid']!="") {
     header('location:'.SITEPATH.'menuListing.php');
 }

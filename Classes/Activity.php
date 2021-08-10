@@ -53,6 +53,38 @@ class Activity {
         mysqli_free_result($result);
         return $this->US_LogoutStatus = $row->US_LogoutStatus;
     }
+    function activityListing($where,$Limit="") {
+        GLOBAL $con;
+        $this->SQL = "SELECT *  FROM activity_history WHERE 1 ".$where." ORDER BY AC_Id DESC ".$Limit;
+        $result = mysqli_query($con, $this->SQL);
+        if ($result->num_rows) {
+            while ($row[] = mysqli_fetch_object($result));
+            mysqli_free_result($result);
+            $this->Activity=array_filter($row);
+        } else {
+            $this->Activity=[];
+        }
+         return $this->Activity;
+    }
+    function MenuSave() {
+        GLOBAL $con;
+        $this->SQL = "INSERT INTO menus ( " . implode(', ', array_keys($this->menuArray)) . ") VALUES (" . "'" . implode("','", array_values($this->menuArray)) . "'" . ")";
+        $result = mysqli_query($con, $this->SQL);
+        return $this->MNID = mysqli_insert_id($con);
+    }
+    function menuListing($where,$Limit="") {
+        GLOBAL $con;
+        echo $this->SQL = "SELECT *  FROM menus WHERE 1 ".$where." ORDER BY MN_Id DESC ".$Limit;
+        $result = mysqli_query($con, $this->SQL);
+        if ($result->num_rows) {
+            while ($row[] = mysqli_fetch_object($result));
+            mysqli_free_result($result);
+            $this->Menus=array_filter($row);
+        } else {
+            $this->Menus=[];
+        }
+         return $this->Menus;
+    }
 }
 
 ?>
