@@ -1,18 +1,6 @@
 (function ($, window, undefined) {
     ActivityStream = {
         Events: () => {
-            var cookieSub = [];
-            var cookieString = document.cookie.split(';');
-            $.each(cookieString, function (i, item) {
-                if(item){
-                cookieSub.push(item.split("=")[0].trim());
-                cookieSub.push(item.split("=")[1].trim());
-            }
-            });
-
-            if ($.inArray("USID", cookieSub) !== -1 && cookieSub[1]!="") {
-                window.location.href = SITEPATH+'menuListing.php';
-            }
             $(document).on('click', '.go-registration', (e) => {
 
                 $("#sign-in").find('input').val('');
@@ -78,7 +66,7 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.status == 1) {
-                            alert('Login SUccess');
+                            alert('Login Success');
                             window.location.href = SITEPATH+'menuListing.php';
                         } else if (data.status == 2) {
                             alert('Login Error');

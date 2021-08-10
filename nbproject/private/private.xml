@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/xampp/htdocs/activity-stream/style/style.css</file>
-            <file>file:/E:/xampp/htdocs/activity-stream/Classes/Activity.php</file>
-            <file>file:/E:/xampp/htdocs/activity-stream/Controllers/logoutStatusCheck.php</file>
-            <file>file:/E:/xampp/htdocs/activity-stream/Controllers/activityStream.php</file>
-            <file>file:/E:/xampp/htdocs/activity-stream/Classes/Connection.php</file>
-            <file>file:/E:/xampp/htdocs/activity-stream/script/ActivityStream.js</file>
-            <file>file:/E:/xampp/htdocs/activity-stream/script/MenuListing.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

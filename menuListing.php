@@ -1,5 +1,8 @@
 <?php
 require_once '_conf.php';
+if(!isset($_COOKIE['usid'])) {
+    header('location:'.SITEPATH);
+}
 ?><html>
     <head>
         <meta charset="UTF-8">
@@ -11,12 +14,12 @@ require_once '_conf.php';
     </head>
     <body>
         <?php
-        include(BASEPATH . 'includes/header.php')
+        include(BASEPATH . 'includes/header.php');
         ?>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-danger btn-sm logout">Logout</button>
+                    <button type="button" class="btn btn-danger btn-sm logout" usid="<?=$_COOKIE['usid'] ? $_COOKIE['usid']:''?>">Logout</button>
                 </div>
             </div>
             <div class="row">
