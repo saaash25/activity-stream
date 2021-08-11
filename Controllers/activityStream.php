@@ -3,6 +3,7 @@
 require_once '../_conf.php';
 require_once BASEPATH . 'Classes/Activity.php';
 $activityObj = new Activity();
+date_default_timezone_set("Asia/Kolkata");
 if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     $loginTime = date('Y-m-d h:i:s');
     $activityObj->signUpArray = array(
