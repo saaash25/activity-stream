@@ -93,8 +93,7 @@
             });
 
         },
-        ActivityLogList: () => {},
-        ActivityLogList1: () => {
+        ActivityLogList: () => {
             var pagelength;
             pagelength = 10;
             var cookieString = document.cookie.split(';');
@@ -109,8 +108,7 @@
                 pagelength = cookieSub[arrayIndex];
             }
             var columnData = [];
-            if ($('#menuListingTable').DataTable())
-                $('#menuListingTable').DataTable().destroy();
+            
             if ($('#activityListingTable').DataTable())
                 $('#activityListingTable').DataTable().destroy();
             var USID = $(".logout").attr('usid');
@@ -152,8 +150,7 @@
                 menuPageLength = cookieSubMenu[arrayIndex];
             }
             var columnDataMenu = [];
-            if ($('#activityListingTable').DataTable())
-                $('#activityListingTable').DataTable().destroy();
+            
             if ($('#menuListingTable').DataTable())
                 $('#menuListingTable').DataTable().destroy();
             var USID = $(".logout").attr('usid');
