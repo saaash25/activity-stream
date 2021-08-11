@@ -11,6 +11,8 @@ if (!isset($_COOKIE['usid'])) {
         <link rel="stylesheet" href="<?= SITEPATH ?>assets/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="<?= SITEPATH ?>style/style.css" />
         <link rel="stylesheet" href="<?= SITEPATH ?>assets/bootstrap/css/datatables.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css" integrity="sha512-FEQLazq9ecqLN5T6wWq26hCZf7kPqUbFC9vsHNbXMJtSZZWAcbJspT+/NEAQkBfFReZ8r9QlA9JHaAuo28MTJA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     </head>
     <body>
         <?php
@@ -27,7 +29,7 @@ if (!isset($_COOKIE['usid'])) {
                     <a class="nav-link active" aria-current="page" toSection="activity" href="#activityListing">Activity List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#addMenu" >Add Menu</a>
+                    <a class="nav-link" href="#addMenu" toSection="addMenu" >Add Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#listmenu" toSection="menu">Menu List</a>
@@ -58,22 +60,30 @@ if (!isset($_COOKIE['usid'])) {
                 <form id="menu-add" action="#" method='POST' autocomplete="off">
                     <div class="col-12 col-md-12">
                         <div class="form-group">
+                            <input  type="hidden" name="menuid" class="form-control menuid" id="menuid" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
                             <label for="menu">Menu</label>
                             <input  type="text" name="menu" class="form-control menu" id="menu"  placeholder="Enter Menu"/>
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="form-group">
-                            <button  type="submit" name="add-menu" class="btn btn-sm btn-success add-menu" id="add-menu" >Add Menu</button>
-                            <button  type="button" name="cancel-menu" class="btn btn-sm btn-secondary cancel-menu" >Cancel</button>
+                            <div class="row">
+                                <div class="col"><button  type="submit" name="add-menu" class="btn btn-sm btn-success add-menu" id="add-menu" >Add Menu</button></div>
+                                <div class="col"><button  type="submit" name="update-menu" class="btn btn-sm btn-success update-menu" id="update-menu" >Update Menu</button></div>
+                                <div class="col"><button  type="button" name="cancel-menu" class="btn btn-sm btn-secondary cancel-menu" >Cancel</button></div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div id="listmenu" class="section-div">
                 <div class="row">
-                    <div class="table-responsive">
-                        <table id="menuListingTable col" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+                    <div class="table-responsive col">
+                        <table id="menuListingTable" class="table table-striped table-bordered display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col" width="5%">#</th>
@@ -82,7 +92,6 @@ if (!isset($_COOKIE['usid'])) {
                                 </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
                     </div>

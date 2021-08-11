@@ -166,5 +166,50 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
         "recordsFiltered" => $filterCount,
         "data" => $menuData];
     echo json_encode($results);
+} else if (isset($_POST['action']) && $_POST['action'] == 'menuDelete') {
+    $where = " AND MN_Id='" . $_REQUEST['MNID'] . "'";
+    $MN_Name=$_REQUEST['MN_Name'];
+    $usid = $_REQUEST['USID'];
+    $activityObj->menuDelete($where);
+    $deleteId = $activityObj->deleteId;
+    $deleteTime = date('Y-m-d h:i:s');
+    if ($deleteId) {
+        $activityObj->activityArray = array(
+            'US_Id' => $usid,
+            'AC_ActivityLog' => 'Menu ' . htmlspecialchars($MN_Name, ENT_QUOTES) . ' Deleted  at ' . $deleteTime,
+            'AC_ActivityTime' => $deleteTime
+        );
+        $userDataCount = $activityObj->SaveLoginTime();
+        echo json_encode(array('status' => 1));
+    } else {
+        echo json_encode(array('status' => 2));
+    }
+}
+else if (isset($_POST['action']) && $_POST['action'] == 'getMenuData') {
+     $where = " AND MN_Id='" . $_REQUEST['MNID'] . "'";
+     $menuData = $activityObj->getMenuData($where);
+     echo json_encode(array('data' => $menuData));
+}
+else if (isset($_POST['action']) && $_POST['action'] == 'menuUpdate') {
+    $where = " MN_Id='" . $_REQUEST['MNID'] . "'";
+    $MN_Name=$_REQUEST['MN_Name'];
+    $menu = $_REQUEST['menu'];
+    $usid = $_REQUEST['USID'];
+    $updateTime = date('Y-m-d h:i:s');
+    $activityObj->menuArray = array(
+        'MN_Name' => htmlspecialchars($menu, ENT_QUOTES),
+    );
+    $menuId = $activityObj->menuUpdate($where);
+    if ($menuId) {
+        $activityObj->activityArray = array(
+            'US_Id' => $usid,
+            'AC_ActivityLog' => 'Menu name updated from ' . htmlspecialchars($MN_Name, ENT_QUOTES) . ' to  at ' . htmlspecialchars($menu, ENT_QUOTES) .' at '.  $updateTime,
+            'AC_ActivityTime' => $updateTime
+        );
+        $userDataCount = $activityObj->SaveLoginTime();
+        echo json_encode(array('status' => 1));
+    } else {
+        echo json_encode(array('status' => 2));
+    }
 }
 ?>
