@@ -30,7 +30,8 @@
             MenuListing.ActivityLogList();
             $(document).on('mousemove', 'body', function (e) {
                 var USID = $(".logout").attr('usid');
-                if (!USID) {
+               
+                if (USID) {
                     clearTimeout(checkdelay);
                     checkdelay = setTimeout(function () {
                         var USID = $(".logout").attr('usid');
@@ -50,6 +51,12 @@
                             }
                         });
                     }, 500);
+                }else{
+                    
+                    if(window.location.href!=SITEPATH){
+                        alert('Session Expired');
+                        window.location.href=SITEPATH
+                    }
                 }
             });
             $(document).on('click', '.nav-link', function (e) {
