@@ -38,6 +38,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     if ($userDetails) {
         setcookie('usid', $userDetails->US_Id, time() + 3600, '/');
         $loginTime = date('Y-m-d h:i:s');
+        setcookie('logInTime', $loginTime, time() + 3600, '/');
         $activityObj->activityArray = array(
             'US_Id' => $userDetails->US_Id,
             'AC_ActivityLog' => 'Logged In at ' . $loginTime,
@@ -52,7 +53,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
 } else if (isset($_POST['action']) && $_POST['action'] == 'logout') {
     if (isset($_COOKIE['usid']) && $_COOKIE['usid'] != "") {
         unset($_COOKIE['usid']);
+        unset($_COOKIE['logInTime']);
         setcookie("usid", "", time() - 3600, '/');
+        setcookie('logInTime', "", time() - 3600, '/');
 
         $activityObj->UpdateLogoutStatus($_REQUEST['USID']);
         $loginTime = date('Y-m-d h:i:s');
@@ -66,11 +69,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     }
 } else if (isset($_POST['action']) && $_POST['action'] == 'checkLoginStatus') {
     if (isset($_REQUEST['USID']) && $_REQUEST['USID'] != "") {
-        $logoutStatus = $activityObj->checkLogoutStausCheck($_REQUEST['USID']);
-        if ($logoutStatus == 1) {
+        $lastLoginTime = $activityObj->checkLogoutStausCheck($_REQUEST['USID']);
+        if ($lastLoginTime > $_COOKIE['logInTime']) {
             if (isset($_COOKIE['usid']) && $_COOKIE['usid'] != "") {
                 unset($_COOKIE['usid']);
+                unset($_COOKIE['logInTime']);
                 setcookie("usid", "", time() - 3600, '/');
+                setcookie("logInTime", "", time() - 3600, '/');
             }
             $loginTime = date('Y-m-d h:i:s');
             $activityObj->activityArray = array(
@@ -168,7 +173,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     echo json_encode($results);
 } else if (isset($_POST['action']) && $_POST['action'] == 'menuDelete') {
     $where = " AND MN_Id='" . $_REQUEST['MNID'] . "'";
-    $MN_Name=$_REQUEST['MN_Name'];
+    $MN_Name = $_REQUEST['MN_Name'];
     $usid = $_REQUEST['USID'];
     $activityObj->menuDelete($where);
     $deleteId = $activityObj->deleteId;
@@ -184,15 +189,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     } else {
         echo json_encode(array('status' => 2));
     }
-}
-else if (isset($_POST['action']) && $_POST['action'] == 'getMenuData') {
-     $where = " AND MN_Id='" . $_REQUEST['MNID'] . "'";
-     $menuData = $activityObj->getMenuData($where);
-     echo json_encode(array('data' => $menuData));
-}
-else if (isset($_POST['action']) && $_POST['action'] == 'menuUpdate') {
+} else if (isset($_POST['action']) && $_POST['action'] == 'getMenuData') {
+    $where = " AND MN_Id='" . $_REQUEST['MNID'] . "'";
+    $menuData = $activityObj->getMenuData($where);
+    echo json_encode(array('data' => $menuData));
+} else if (isset($_POST['action']) && $_POST['action'] == 'menuUpdate') {
     $where = " MN_Id='" . $_REQUEST['MNID'] . "'";
-    $MN_Name=$_REQUEST['MN_Name'];
+    $MN_Name = $_REQUEST['MN_Name'];
     $menu = $_REQUEST['menu'];
     $usid = $_REQUEST['USID'];
     $updateTime = date('Y-m-d h:i:s');
@@ -203,7 +206,7 @@ else if (isset($_POST['action']) && $_POST['action'] == 'menuUpdate') {
     if ($menuId) {
         $activityObj->activityArray = array(
             'US_Id' => $usid,
-            'AC_ActivityLog' => 'Menu name updated from ' . htmlspecialchars($MN_Name, ENT_QUOTES) . ' to  at ' . htmlspecialchars($menu, ENT_QUOTES) .' at '.  $updateTime,
+            'AC_ActivityLog' => 'Menu name updated from ' . htmlspecialchars($MN_Name, ENT_QUOTES) . ' to  at ' . htmlspecialchars($menu, ENT_QUOTES) . ' at ' . $updateTime,
             'AC_ActivityTime' => $updateTime
         );
         $userDataCount = $activityObj->SaveLoginTime();

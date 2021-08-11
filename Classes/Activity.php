@@ -53,11 +53,11 @@ class Activity {
 
     function checkLogoutStausCheck($US_Id) {
         GLOBAL $con;
-        $this->SQL = "SELECT US_LogoutStatus FROM users WHERE 1 AND US_Id='" . $US_Id . "'";
+        $this->SQL = "SELECT US_LastLoginTime FROM users WHERE 1 AND US_Id='" . $US_Id . "'";
         $result = mysqli_query($con, $this->SQL);
         $row = mysqli_fetch_object($result);
         mysqli_free_result($result);
-        return $this->US_LogoutStatus = $row->US_LogoutStatus;
+        return $this->US_LastLoginTime = $row->US_LastLoginTime;
     }
 
     function activityListing($where, $Limit = "") {
